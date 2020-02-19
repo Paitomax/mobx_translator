@@ -1,16 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+import 'app.dart';
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'MobX Translator',
-      theme: ThemeData(primarySwatch: Colors.blue,
-      ),
-      home: Container(),
-    );
-  }
-}
+void main() => runApp(MyApp());

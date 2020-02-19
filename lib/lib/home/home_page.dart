@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
@@ -21,40 +22,19 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             _buildDescription(),
-            SizedBox(height: 16),
+            SizedBox(height: 32),
             Observer(
               builder: (context) {
-                return Row(
+                return Column(
                   children: <Widget>[
-                    Expanded(
-                      child: TextField(
-                        controller: _controller,
-                        keyboardType: TextInputType.text,
-                        maxLines: 10,
-                        minLines: 1,
-                        autofocus: true,
-                      ),
-                    ),
-                    SizedBox(width: 16),
-                    RaisedButton(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      child: !_homeController.loading
-                          ? Text("Traduzir")
-                          : SizedBox(
-                              height: 23,
-                              width: 23,
-                              child: CircularProgressIndicator()),
-                      onPressed: _homeController.loading
-                          ? null
-                          : () {
-                              _homeController.translate(_controller.text);
-                            },
-                    ),
+                    _buildTextField(),
+                    SizedBox(height: 16),
+                    _buildButton(),
                   ],
                 );
               },
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 32),
             Observer(
               builder: (context) {
                 return Text(
@@ -71,9 +51,44 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget _buildTextField() {
+    return TextField(
+      controller: _controller,
+      keyboardType: TextInputType.text,
+      maxLines: 10,
+      minLines: 1,
+      autofocus: true,
+    );
+  }
+
+  Widget _buildButton() {
+    return Container(
+      width: double.infinity,
+      child: FlatButton(
+        color: Colors.blue,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(16))),
+        padding: EdgeInsets.symmetric(vertical: 16),
+        child: !_homeController.loading
+            ? Text(
+                "Traduzir",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              )
+            : SizedBox(
+                height: 23, width: 23, child: CircularProgressIndicator()),
+        onPressed: _homeController.loading
+            ? null
+            : () {
+                if (_controller.text.isNotEmpty && _controller.text != null)
+                  _homeController.translate(_controller.text);
+              },
+      ),
+    );
+  }
+
   Widget _buildDescription() {
     return Text(
-      "Escreva o que queira traduzir para o inglês ",
+      "Tradudor de Português para Ingles",
       textAlign: TextAlign.center,
       style: TextStyle(
         fontSize: 16,

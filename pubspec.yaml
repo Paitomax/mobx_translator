@@ -11,6 +11,9 @@ dependencies:
 
   cupertino_icons: ^0.1.2
   mobx: ^1.0.2
+  flutter_mobx: ^1.0.1
+  translator: ^0.1.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
